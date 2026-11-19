@@ -1,0 +1,24 @@
+# Googlebot & All Web Crawlers
+User-agent: *
+Allow: /
+
+# Search Engine Specific Optimization
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Yeti
+Allow: /
+
+User-agent: Daumoa
+Allow: /
+
+User-agent: bingbot
+Allow: /
+
+# Canonical Sitemap Reference
+Sitemap: https://www.reelkings.kr/sitemap.xml
+Sitemap: https://reelkings.kr/sitemap.xml
+Host: https://www.reelkings.kr
