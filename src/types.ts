@@ -1,6 +1,7 @@
 export interface ReelGameItem {
   id: string;
-  slotIndex: number; // 1 ~ 9
+  slug: string;
+  slotIndex: number; // 1 ~ 12
   title: string;
   subtitle: string;
   category: 'classic' | 'ocean' | 'fantasy' | 'retro';
@@ -17,6 +18,7 @@ export interface ReelGameItem {
   features: string[];
   reels?: string[];
   isSquarePoster?: boolean;
+  lastmod?: string;
 }
 
 export type SEOArticleCategory = 'all' | 'intro' | 'games' | 'strategy' | 'safety' | 'faq';

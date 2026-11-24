@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { ReelGameItem } from '../types';
+import { navigateTo } from '../utils/seo';
 import { 
   Play, 
   Info, 
@@ -165,7 +166,7 @@ export function GameGridSection({
                 >
                   <img
                     src={game.imageUrl}
-                    alt={game.title}
+                    alt={`${game.title} - ${game.subtitle}`}
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-contain bg-slate-950 group-hover/thumb:scale-[1.02] transition-transform duration-500"
                     loading="lazy"
@@ -218,7 +219,16 @@ export function GameGridSection({
                   <div>
                     <div className="flex items-start justify-between gap-2">
                       <h3 className="text-lg font-bold text-white group-hover:text-amber-400 transition-colors">
-                        {game.title}
+                        <a
+                          href={`/games/${game.slug}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            navigateTo(`/games/${game.slug}`);
+                          }}
+                          className="hover:underline underline-offset-4"
+                        >
+                          {game.title}
+                        </a>
                       </h3>
                       <span className="text-xs font-bold px-2 py-0.5 rounded bg-slate-800 text-amber-400 border border-slate-700 shrink-0 font-mono">
                         RTP {game.rtp}%

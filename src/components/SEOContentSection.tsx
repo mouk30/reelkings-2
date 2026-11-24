@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { SEO_ARTICLES, GLOSSARY_TERMS } from '../data/seoContent';
 import { SEOArticle, SEOArticleCategory } from '../types';
+import { navigateTo } from '../utils/seo';
 import { 
   BookOpen, 
   HelpCircle, 
@@ -219,9 +220,23 @@ export function SEOContentSection({ externalSearchQuery = '' }: SEOContentSectio
                       <span className="text-slate-400">{selectedArticle.readTime}</span>
                     </div>
 
-                    <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight leading-snug">
+                    <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight leading-snug">
                       {selectedArticle.title}
-                    </h1>
+                    </h3>
+
+                    <div className="flex items-center justify-between gap-2 pt-1">
+                      <a
+                        href={`/guides/${selectedArticle.slug}`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          navigateTo(`/guides/${selectedArticle.slug}`);
+                        }}
+                        className="inline-flex items-center gap-1 text-xs font-bold text-amber-400 hover:text-amber-300"
+                      >
+                        <span>전체 페이지로 읽기</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    </div>
 
                     <p className="text-sm text-slate-300 leading-relaxed bg-slate-950/60 p-3.5 rounded-xl border border-slate-800/80">
                       <strong>핵심 요약:</strong> {selectedArticle.summary}
@@ -232,10 +247,10 @@ export function SEOContentSection({ externalSearchQuery = '' }: SEOContentSectio
                   <div className="space-y-6 text-sm text-slate-300 leading-relaxed">
                     {selectedArticle.content.map((sec, idx) => (
                       <section key={idx} className="space-y-3">
-                        <h2 className="text-lg font-bold text-amber-400 flex items-center gap-2">
+                        <h4 className="text-lg font-bold text-amber-400 flex items-center gap-2">
                           <span className="w-1.5 h-4 rounded-full bg-amber-400" />
                           {sec.heading}
-                        </h2>
+                        </h4>
 
                         {sec.body.map((p, pIdx) => (
                           <p key={pIdx} className="leading-relaxed text-slate-300">

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { navigateTo } from '../utils/seo';
 import { 
   Sparkles, 
   ShieldCheck, 
@@ -17,6 +18,28 @@ interface HeaderProps {
 
 export function Header({ onOpenCS }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, target: string) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+    if (target === '/') {
+      navigateTo('/');
+      return;
+    }
+    if (target.startsWith('/#')) {
+      const id = target.slice(2);
+      if (window.location.pathname !== '/') {
+        navigateTo('/');
+        setTimeout(() => {
+          document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        }, 60);
+      } else {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      }
+      return;
+    }
+    navigateTo(target);
+  };
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-slate-800/80 bg-slate-950/90 backdrop-blur-md">
@@ -48,7 +71,11 @@ export function Header({ onOpenCS }: HeaderProps) {
       {/* Main Navigation Bar */}
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-2">
         {/* Brand Logo */}
-        <a href="#" className="flex items-center gap-2 sm:gap-3 group shrink-0">
+        <a
+          href="/"
+          onClick={(e) => handleNavClick(e, '/')}
+          className="flex items-center gap-2 sm:gap-3 group shrink-0"
+        >
           <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl overflow-hidden shadow-lg shadow-amber-500/20 border border-amber-400/50 group-hover:scale-105 transition-transform duration-200 shrink-0 bg-slate-950 flex items-center justify-center p-0.5">
             <img src="/favicon.png" alt="릴게임릴킹 대왕고래 파비콘" className="w-full h-full object-cover rounded-md sm:rounded-lg" referrerPolicy="no-referrer" />
           </div>
@@ -70,31 +97,36 @@ export function Header({ onOpenCS }: HeaderProps) {
         {/* Desktop Navigation Links */}
         <nav className="hidden md:flex items-center gap-1 lg:gap-2 text-sm font-medium">
           <a 
-            href="#games-grid" 
+            href="/games" 
+            onClick={(e) => handleNavClick(e, window.location.pathname === '/' ? '/#games-grid' : '/games')}
             className="px-3 py-1.5 rounded-lg text-slate-300 hover:text-amber-400 hover:bg-slate-800/60 transition-colors"
           >
             9대 릴게임
           </a>
           <a 
-            href="#seo-guide" 
+            href="/guides" 
+            onClick={(e) => handleNavClick(e, window.location.pathname === '/' ? '/#seo-guide' : '/guides')}
             className="px-3 py-1.5 rounded-lg text-slate-300 hover:text-amber-400 hover:bg-slate-800/60 transition-colors"
           >
             릴게임 백과사전
           </a>
           <a 
-            href="#strategy-section" 
+            href="/#strategy-section" 
+            onClick={(e) => handleNavClick(e, '/#strategy-section')}
             className="px-3 py-1.5 rounded-lg text-slate-300 hover:text-amber-400 hover:bg-slate-800/60 transition-colors"
           >
             기종 스펙 & 환수율
           </a>
           <a 
-            href="#safe-verification" 
+            href="/#safe-verification" 
+            onClick={(e) => handleNavClick(e, '/#safe-verification')}
             className="px-3 py-1.5 rounded-lg text-slate-300 hover:text-amber-400 hover:bg-slate-800/60 transition-colors"
           >
             먹튀 검증안내
           </a>
           <a 
-            href="#faq-section" 
+            href="/faq" 
+            onClick={(e) => handleNavClick(e, window.location.pathname === '/' ? '/#faq-section' : '/faq')}
             className="px-3 py-1.5 rounded-lg text-slate-300 hover:text-amber-400 hover:bg-slate-800/60 transition-colors"
           >
             FAQ
@@ -152,36 +184,36 @@ export function Header({ onOpenCS }: HeaderProps) {
             <span>게임시작</span>
           </a>
           <a
-            href="#games-grid"
-            onClick={() => setMobileMenuOpen(false)}
+            href="/games"
+            onClick={(e) => handleNavClick(e, window.location.pathname === '/' ? '/#games-grid' : '/games')}
             className="block px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800 text-sm font-medium"
           >
             🎰 9대 대표 릴게임
           </a>
           <a
-            href="#seo-guide"
-            onClick={() => setMobileMenuOpen(false)}
+            href="/guides"
+            onClick={(e) => handleNavClick(e, window.location.pathname === '/' ? '/#seo-guide' : '/guides')}
             className="block px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800 text-sm font-medium"
           >
             📖 릴게임 백과사전 & 역사
           </a>
           <a
-            href="#strategy-section"
-            onClick={() => setMobileMenuOpen(false)}
+            href="/#strategy-section"
+            onClick={(e) => handleNavClick(e, '/#strategy-section')}
             className="block px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800 text-sm font-medium"
           >
             💡 기종 스펙 & 환수율(RTP)
           </a>
           <a
-            href="#safe-verification"
-            onClick={() => setMobileMenuOpen(false)}
+            href="/#safe-verification"
+            onClick={(e) => handleNavClick(e, '/#safe-verification')}
             className="block px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800 text-sm font-medium"
           >
             🛡️ 안전 사이트 판별 수칙
           </a>
           <a
-            href="#faq-section"
-            onClick={() => setMobileMenuOpen(false)}
+            href="/faq"
+            onClick={(e) => handleNavClick(e, window.location.pathname === '/' ? '/#faq-section' : '/faq')}
             className="block px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800 text-sm font-medium"
           >
             ❓ 자주 묻는 질문 (FAQ)

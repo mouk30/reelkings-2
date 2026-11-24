@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ReelGameItem } from '../types';
+import { navigateTo } from '../utils/seo';
 import { 
   X, 
   Play, 
@@ -278,7 +279,18 @@ export function GameDemoModal({
             <span>정식 라이선스 인증 아케이드 엔진</span>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <a
+              href={`/games/${game.slug}`}
+              onClick={(e) => {
+                e.preventDefault();
+                onClose();
+                navigateTo(`/games/${game.slug}`);
+              }}
+              className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 text-xs font-semibold"
+            >
+              상세 페이지
+            </a>
             <button
               onClick={onClose}
               className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold"
